@@ -11,7 +11,7 @@ interface AuthLayoutProps {
 
 export default function AuthLayout({
   children,
-  backgroundImageSrc = "/images/auth-hero.jpg",
+  backgroundImageSrc = "/images/login-foto.jpg",
   tagline = "Wujudkan hari bahagia Anda tanpa ribet",
 }: AuthLayoutProps) {
   return (
@@ -28,7 +28,7 @@ export default function AuthLayout({
         />
 
         {/* Navy Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-t from-primary/90 via-primary/40 to-transparent" />
 
         {/* Branding (Top-Left) */}
         <div className="absolute left-10 top-10 z-10">

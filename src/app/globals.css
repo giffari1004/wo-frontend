@@ -49,20 +49,20 @@
 }
 
 :root {
-  --background: 40 30% 97%;      /* ivory/cream */
+  --background: rgb(250, 248, 245);      /* ivory/cream */
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: 217 36% 20%;        /* #1F2A44 navy */
-  --primary-foreground: 0 0% 100%;
+  --primary: rgb(31, 42, 68);        /* #1F2A44 navy */
+  --primary-foreground: rgb(255, 255, 255);
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
   --muted: oklch(0.97 0 0);
   --muted-foreground: oklch(0.556 0 0);
-  --accent: 34 33% 52%;          /* #B08D57 gold */
-  --accent-foreground: 0 0% 100%;
+  --accent: rgb(173, 138, 92);          /* #B08D57 gold */
+  --accent-foreground: rgb(255, 255, 255);
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
