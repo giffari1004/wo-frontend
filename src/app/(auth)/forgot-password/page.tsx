@@ -1,5 +1,3 @@
-<<<<<<< Updated upstream
-=======
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -193,4 +191,3 @@ export default function ForgotPasswordPage() {
     </div>
   );
 }
->>>>>>> Stashed changes
