@@ -110,10 +110,11 @@ export default function RegisterPage() {
     setErrorMsg(null);
     try {
       const response = await api.post("/auth/register", {
-        fullName: data.fullName,
+        name: data.fullName,
         email: data.email,
         phone: data.phone,
         password: data.password,
+        confirmPassword: data.confirmPassword,
       });
 
       // TODO: persist token via useAuthStore, then redirect based on flow — if ?package query param was present, continue to /order/new, otherwise /dashboard
