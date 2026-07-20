@@ -57,7 +57,7 @@ export default function LoginPage() {
       // Bentuk response asli backend: { success, message, data: { user, token } }
       const { user, token } = response.data.data;
 
-      setSession(token, user.role);
+      setSession(token, user.role, user.name);
       router.push(getRedirectPathForRole(user.role));
     } catch (error: unknown) {
       console.error("Login error:", error);

@@ -282,7 +282,7 @@ export default function HomePage() {
             {/* Left Big Panel Frame */}
             <div className="relative aspect-4/5 md:aspect-3/4 md:row-span-2 rounded-xl overflow-hidden shadow-sm bg-muted">
               <Image
-                src="/images/portfolio-1.jpg"
+                src="/images/portfolio-1.png"
                 alt="Dokumentasi Portofolio Janji Seiring 1"
                 fill
                 className="object-cover hover:scale-105 transition-transform duration-500"
@@ -291,9 +291,9 @@ export default function HomePage() {
             </div>
 
             {/* Top Right Mini Frame Container */}
-            <div className="relative aspect-4/3 rounded-xl overflow-hidden shadow-sm bg-muted">
+            <div className="relative aspect-4/2.5 rounded-xl overflow-hidden shadow-sm bg-muted">
               <Image
-                src="/images/portfolio-2.jpg"
+                src="/images/portfolio-2.png"
                 alt="Dokumentasi Portofolio Janji Seiring 2"
                 fill
                 className="object-cover hover:scale-105 transition-transform duration-500"
@@ -302,7 +302,7 @@ export default function HomePage() {
             </div>
 
             {/* Bottom Right Inner Frame Wrapper */}
-            <div className="relative aspect-4/3 rounded-xl overflow-hidden shadow-sm bg-muted">
+            <div className="relative aspect-4/2.5 rounded-xl overflow-hidden shadow-sm bg-muted">
               <Image
                 src="/images/portfolio-3.jpg"
                 alt="Dokumentasi Portofolio Janji Seiring 3"
