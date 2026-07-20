@@ -9,6 +9,7 @@ import * as z from "zod";
 import { Mail, Lock, Eye, EyeOff, Loader2 } from "lucide-react";
 
 import { api } from "@/lib/api";
+import { setSession, getRedirectPathForRole } from "@/lib/auth";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -53,9 +54,11 @@ export default function LoginPage() {
         password: data.password,
       });
 
-      // TODO: persist token via useAuthStore / cookie, then router.push based on role (ADMIN → /admin, CLIENT → /dashboard)
-      console.log("Login success:", response.data);
-      router.push("/dashboard");
+      // Bentuk response asli backend: { success, message, data: { user, token } }
+      const { user, token } = response.data.data;
+
+      setSession(token, user.role);
+      router.push(getRedirectPathForRole(user.role));
     } catch (error: unknown) {
       console.error("Login error:", error);
       setErrorMsg("Email atau password salah");

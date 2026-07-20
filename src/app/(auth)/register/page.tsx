@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 
 import { api } from "@/lib/api";
+import { setSession, getRedirectPathForRole } from "@/lib/auth";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -117,9 +118,17 @@ export default function RegisterPage() {
         confirmPassword: data.confirmPassword,
       });
 
-      // TODO: persist token via useAuthStore, then redirect based on flow — if ?package query param was present, continue to /order/new, otherwise /dashboard
-      console.log("Registration success:", response.data);
-      router.push("/dashboard");
+      // Bentuk response asli backend: { success, message, data: { user, token } }
+      const { user, token } = response.data.data;
+      setSession(token, user.role);
+
+      // Kalau register dipicu dari flow pilih paket (?package=gold), lanjutkan
+      // ke pemesanan alih-alih ke dashboard kosong.
+      if (packageParam) {
+        router.push(`/order/new?package=${packageParam}`);
+      } else {
+        router.push(getRedirectPathForRole(user.role));
+      }
     } catch (error: unknown) {
       console.error("Registration error:", error);
       const axiosError = error as {
