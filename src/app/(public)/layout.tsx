@@ -1,25 +1,29 @@
-"use client";
-
-import React, { useState } from "react";
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
+import { cookies } from "next/headers";
 
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+import { AUTH_COOKIE_NAMES, type UserRole } from "@/lib/auth-constants";
+import { NavAuthArea } from "./_components/NavAuthArea";
+import { MobileNav } from "./_components/MobileNav";
 
 interface PublicLayoutProps {
   children: React.ReactNode;
 }
 
-export default function PublicLayout({ children }: PublicLayoutProps) {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
+const NAV_LINKS = [
+  { name: "PAKET", href: "/#paket" },
+  { name: "VENDOR", href: "/#vendor" },
+  { name: "TESTIMONI", href: "/#testimoni" },
+  { name: "KONTAK", href: "/#kontak" },
+];
 
-  const navLinks = [
-    { name: "PAKET", href: "/#paket" },
-    { name: "VENDOR", href: "/#vendor" },
-    { name: "TESTIMONI", href: "/#testimoni" },
-    { name: "KONTAK", href: "/#kontak" },
-  ];
+export default async function PublicLayout({ children }: PublicLayoutProps) {
+  const cookieStore = await cookies();
+  const token = cookieStore.get(AUTH_COOKIE_NAMES.token)?.value ?? null;
+  const role =
+    (cookieStore.get(AUTH_COOKIE_NAMES.role)?.value as UserRole | undefined) ??
+    null;
+  const userName = cookieStore.get(AUTH_COOKIE_NAMES.name)?.value ?? null;
+  const isLoggedIn = Boolean(token);
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
@@ -36,7 +40,7 @@ export default function PublicLayout({ children }: PublicLayoutProps) {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
+            {NAV_LINKS.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
@@ -47,58 +51,22 @@ export default function PublicLayout({ children }: PublicLayoutProps) {
             ))}
           </nav>
 
-          {/* Desktop Action Button */}
+          {/* Desktop Auth Area — Avatar+dropdown kalau login, tombol LOGIN kalau belum */}
           <div className="hidden md:block">
-            <Button
-              asChild
-              className="rounded-full bg-primary hover:bg-primary/90 text-primary-foreground text-xs font-semibold tracking-wider px-6 h-10 uppercase"
-            >
-              <Link href="/login">LOGIN</Link>
-            </Button>
+            <NavAuthArea
+              isLoggedIn={isLoggedIn}
+              userName={userName}
+              userRole={role}
+            />
           </div>
 
-          {/* Mobile Menu Trigger */}
-          <button
-            type="button"
-            className="md:hidden p-2 text-foreground hover:text-primary transition-colors focus:outline-none"
-            onClick={() => setIsMobileMenuOpen((prev) => !prev)}
-            aria-label="Toggle Menu"
-          >
-            {isMobileMenuOpen ? (
-              <X className="h-6 w-6" />
-            ) : (
-              <Menu className="h-6 w-6" />
-            )}
-          </button>
-        </div>
-
-        {/* Mobile Navigation Dropdown */}
-        <div
-          className={cn(
-            "md:hidden w-full bg-background border-b border-border transition-all duration-300 ease-in-out overflow-hidden",
-            isMobileMenuOpen ? "max-h-64 opacity-100" : "max-h-0 opacity-0",
-          )}
-        >
-          <div className="px-4 pt-2 pb-6 flex flex-col gap-4">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="text-sm font-medium tracking-wide text-foreground/70 hover:text-primary py-1 transition-colors"
-              >
-                {link.name}
-              </Link>
-            ))}
-            <Button
-              asChild
-              className="rounded-full bg-primary hover:bg-primary/90 text-primary-foreground text-xs font-semibold tracking-wider w-full h-11 uppercase mt-2"
-            >
-              <Link href="/login" onClick={() => setIsMobileMenuOpen(false)}>
-                LOGIN
-              </Link>
-            </Button>
-          </div>
+          {/* Mobile: hamburger + panel, termasuk versi mobile dari auth area */}
+          <MobileNav
+            navLinks={NAV_LINKS}
+            isLoggedIn={isLoggedIn}
+            userName={userName}
+            userRole={role}
+          />
         </div>
       </header>
 

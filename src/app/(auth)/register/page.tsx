@@ -120,7 +120,7 @@ export default function RegisterPage() {
 
       // Bentuk response asli backend: { success, message, data: { user, token } }
       const { user, token } = response.data.data;
-      setSession(token, user.role);
+      setSession(token, user.role, user.name);
 
       // Kalau register dipicu dari flow pilih paket (?package=gold), lanjutkan
       // ke pemesanan alih-alih ke dashboard kosong.
