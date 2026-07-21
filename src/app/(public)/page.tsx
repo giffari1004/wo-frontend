@@ -16,6 +16,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { SelectPackageButton } from "../../components/SelectPackageButton";
 
 // --- Data Types & Mock Data ---
 interface PackageFeature {
@@ -34,7 +35,7 @@ interface PackageTier {
 
 const PACKAGES: PackageTier[] = [
   {
-    id: "silver",
+    id: "cm123silver1234567890123",
     name: "Silver",
     description: "Untuk perayaan intim dan elegan.",
     price: "IDR 50M",
@@ -46,7 +47,7 @@ const PACKAGES: PackageTier[] = [
     ],
   },
   {
-    id: "gold",
+    id: "cm123gold123456789012345",
     name: "Gold",
     description: "Pilihan seimbang untuk kemewahan modern.",
     price: "IDR 100M",
@@ -59,7 +60,7 @@ const PACKAGES: PackageTier[] = [
     ],
   },
   {
-    id: "platinum",
+    id: "cm123platinum12345678901",
     name: "Platinum",
     description: "Pengalaman tak terlupakan tanpa kompromi.",
     price: "IDR 200M",
@@ -231,19 +232,11 @@ export default function HomePage() {
               </div>
 
               <div className="pt-8">
-                <Button
-                  asChild
-                  variant={tier.isPopular ? "default" : "outline"}
-                  className={`w-full rounded-full h-11 transition-colors font-medium tracking-wide ${
-                    tier.isPopular
-                      ? "bg-primary hover:bg-primary/90 text-primary-foreground"
-                      : "border-accent text-accent hover:bg-accent/10"
-                  }`}
-                >
-                  <Link href={`/register?package=${tier.id}`}>
-                    Pilih {tier.name}
-                  </Link>
-                </Button>
+                <SelectPackageButton
+                  tierId={tier.id}
+                  tierName={tier.name}
+                  isPopular={tier.isPopular}
+                />
               </div>
             </div>
           ))}

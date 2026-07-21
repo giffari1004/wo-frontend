@@ -43,7 +43,7 @@ export default function OrderLayout({ children }: OrderLayoutProps) {
           Janji Seiring
         </Link>
         <Link
-          href="/dashboard"
+          href="/"
           className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
         >
           Simpan & Keluar
