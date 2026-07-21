@@ -279,42 +279,47 @@ export default function OrderStep1Page() {
 
       {/* ── FIXED LAYOUT BOTTOM ACTION FOOTER PORTAL CONTENT ── */}
       {mounted &&
-        createPortal(
-          <div className="flex h-20 items-center justify-between w-full">
-            {/* Price breakdown status visualization panel */}
-            <div className="flex flex-col">
-              <span className="text-xs text-muted-foreground uppercase tracking-wide font-semibold">
-                ESTIMASI TOTAL
-              </span>
-              <span className="text-lg font-serif font-bold text-primary">
-                {SELECTED_PACKAGE_CONTEXT.estimatedBasePrice}
-              </span>
-            </div>
+        (() => {
+          const portalSlot = document.getElementById("step-actions-slot");
+          if (!portalSlot) return null;
 
-            {/* Core submission execution button wrappers */}
-            <div className="flex items-center gap-3">
-              <Button
-                type="button"
-                variant="outline"
-                onClick={handleSaveDraft}
-                className="rounded-full border-border text-foreground font-medium px-5 h-11 text-sm hidden sm:inline-flex"
-              >
-                Simpan Sebagai Draft
-              </Button>
+          return createPortal(
+            <div className="flex h-20 items-center justify-between w-full">
+              {/* Price breakdown status visualization panel */}
+              <div className="flex flex-col">
+                <span className="text-xs text-muted-foreground uppercase tracking-wide font-semibold">
+                  ESTIMASI TOTAL
+                </span>
+                <span className="text-lg font-serif font-bold text-primary">
+                  {SELECTED_PACKAGE_CONTEXT.estimatedBasePrice}
+                </span>
+              </div>
 
-              <Button
-                type="button"
-                onClick={handleNextStep}
-                disabled={!selectedDate || !selectedVenueId}
-                className="rounded-full bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-6 h-11 text-sm inline-flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-              >
-                Lanjut ke MUA
-                <ArrowRight className="h-4 w-4" />
-              </Button>
-            </div>
-          </div>,
-          document.getElementById("step-actions-slot")!,
-        )}
+              {/* Core submission execution button wrappers */}
+              <div className="flex items-center gap-3">
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={handleSaveDraft}
+                  className="rounded-full border-border text-foreground font-medium px-5 h-11 text-sm hidden sm:inline-flex"
+                >
+                  Simpan Sebagai Draft
+                </Button>
+
+                <Button
+                  type="button"
+                  onClick={handleNextStep}
+                  disabled={!selectedDate || !selectedVenueId}
+                  className="rounded-full bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-6 h-11 text-sm inline-flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                >
+                  Lanjut ke MUA
+                  <ArrowRight className="h-4 w-4" />
+                </Button>
+              </div>
+            </div>,
+            portalSlot,
+          );
+        })()}
     </div>
   );
 }
